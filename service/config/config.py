@@ -56,9 +56,6 @@ class Config(object):
     # Applicatoin
     APP_NAME = 'Flask'
 
-    # Name for logger
-    LOGGER_NAME = 'aws-web-app'
-
     # CORS settings for XHR-calls from browsers
     CORS_ORIGIN = ['*']
     CORS_METHODS = ['POST', 'GET', 'PUT', 'DELETE', 'OPTIONS', 'HEAD']
@@ -105,20 +102,27 @@ class Config(object):
                 'class': 'logging.StreamHandler',
                 'stream': 'ext://flask.logging.wsgi_errors_stream',
                 'formatter': 'default'
+            },
+            'watchtower': {
+                'formatter': 'default',
+                'class': 'watchtower.CloudWatchLogHandler',
+                'log_group': APP_NAME,
+                'stream_name':  'Website',
+                'send_interval': 1
             }
         },
         'root': {
             'level': 'INFO',
-            'handlers': ['wsgi']
+            'handlers': ['wsgi', 'watchtower']
+        },
+        'requests': {
+            'level': 'INFO',
+            'handlers': ['wsgi', 'watchtower']
         },
         'werkzeug': {
             'level': 'INFO',
-            'handlers': ['wsgi']            
-        },
-        LOGGER_NAME: {
-            'level': 'INFO',
-            'handlers': ['wsgi']          
-        }    
+            'handlers': ['wsgi', 'watchtower']            
+        }   
     })
 
     # Cognito

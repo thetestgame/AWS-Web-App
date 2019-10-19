@@ -1,6 +1,7 @@
 zappa
 tornado
 arrow
+watchtower
 flask
 Flask-Script
 flask-restful
