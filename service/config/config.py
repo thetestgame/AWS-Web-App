@@ -95,9 +95,11 @@ class Config(object):
     # Logging 
     LOG_CONFIG = dictConfig({
         'version': 1,
-        'formatters': {'default': {
-            'format': '[%(asctime)s][%(levelname)s][%(module)s]: %(message)s',
-        }},
+        'formatters': {
+            'default': {
+                'format': '[%(asctime)s][%(levelname)s][%(module)s]: %(message)s',
+            }
+        },
         'handlers': {
             'wsgi': {
                 'class': 'logging.StreamHandler',
@@ -108,6 +110,10 @@ class Config(object):
         'root': {
             'level': 'INFO',
             'handlers': ['wsgi']
+        },
+        'werkzeug': {
+            'level': 'INFO',
+            'handlers': ['wsgi']            
         },
         LOGGER_NAME: {
             'level': 'INFO',
