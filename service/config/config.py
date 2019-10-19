@@ -53,7 +53,7 @@ class Config(object):
     # Key used for salting or other stuff
     SECRET_KEY = 'SOME_SECRET_KEY_HERE'
 
-    # Applicatoin
+    # Application
     APP_NAME = 'Flask'
 
     # CORS settings for XHR-calls from browsers
@@ -65,13 +65,7 @@ class Config(object):
     OAUTH_ENDPOINT = None
 
     # Keys for signing auth
-    NODE_KEY_ALLOWED = [
-        # Test frontend
-        "d7c86080232a7f61598cb55c5bcae63967421d33",
-        # Another frontend
-        "e7c86080262e7f61598cb5c5b1ae9396d421d483"
-    ]
-
+    NODE_KEY_ALLOWED = []
     NODE_KEY_CACHE_DIR = "../keycache/"
 
     # Debug Toolbar
