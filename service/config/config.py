@@ -29,20 +29,25 @@ class ServiceContainer(object):
     _services = dict()
 
     def add(self, name, obj):
-        """Add a to the service container
+        """
+        Add a to the service container
         Keyword arguments:
         name -- name of the service
         obj -- the service itself
         """
+
         self._services[name] = obj
 
     def get(self, name):
-        """Get a service from the service container
+        """
+        Get a service from the service container
         Keyword arguments:
         name -- name of the service
         """
+
         if name in self._services:
             return self._services[name]
+        
         return None
 
 class Config(object):
