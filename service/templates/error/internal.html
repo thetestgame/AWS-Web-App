@@ -1,0 +1,26 @@
+{# 
+ * Written by Jordan Maxwell <jordan.maxwell@nxt-games.com>, July 11th, 2019
+#}
+
+{# Page libraries #}
+{% extends "modules/base.html" %}
+
+{# Page Title #}
+{% block title %}{{errorcode}}{% endblock %}
+
+{# Page Navbar #}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-light rounded-0">
+    <a class="navbar-brand" href="#"><h2>Internal Error</h2></a>
+</nav>
+{% endblock %}
+
+{# Page Content #}
+{% block content %}
+    {{super()}}
+    <div id="error-body" class="m-5">
+        <h2 class="m-0 p-0">An Internal Error has occured: {{errorname}}</h2><br/>
+        <h3 class="m-0 p-0">{{errormsg}}</h3><br>
+        <div id="traceback" class="m-0 bg-light border-5 p-5 h3">{{traceback|safe}}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{# 
+ * Written by Jordan Maxwell <jordan.maxwell@nxt-games.com>, July 11th, 2019
+#}
+
+{# Page libraries #}
+{% extends "modules/base.html" %}
+
+{# Page Content #}
+{% block content %}
+    {{super()}}
+    <div id="error-body" class="d-flex justify-content-center align-items-center">
+        <div class="vertical-center">
+            <div class="jumbotron w-100">
+                <div class="container">
+                    <h1 class="display-4 text-center">{{errorcode}}</h1>
+                    <p class="lead text-center">{{errormsg}}</p>
+                    <p>Click <a class="text-center" href="/">here</a> to return to the home page</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

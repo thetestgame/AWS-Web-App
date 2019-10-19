@@ -1,0 +1,10 @@
+zappa
+tornado
+flask
+Flask-Script
+flask-restful
+flask-debugtoolbar
+flask-bootstrap
+flask-s3
+arrow
+cloudwatch-fluent-metrics

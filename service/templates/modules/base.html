@@ -1,0 +1,23 @@
+{# 
+ * Written by Jordan Maxwell <jordan.maxwell@nxt-games.com>, July 11th, 2019
+#}
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block head %}
+    {{super()}}
+    {{fixes.ie8()}}
+
+    <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}" type="image/vnd.microsoft.icon" />
+
+    <!-- Site Stylesheets -->
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/darkly/bootstrap.min.css" rel="stylesheet" integrity="sha384-w+8Gqjk9Cuo6XH9HKHG5t5I1VR4YBNdPt/29vwgfZR485eoEJZ8rJRbm3TR32P6k" crossorigin="anonymous">
+    <link href ="{{url_for('static', filename='css/primary-theme.css')}}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {{util.flashed_messages(dismissible=True)}}
+{% endblock %}
