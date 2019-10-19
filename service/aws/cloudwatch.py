@@ -32,9 +32,11 @@ def start_request():
 	Called before every request. Starts the metric timer
 	"""
 
-	g._request_metrics = BufferedFluentMetric()
-	g._request_metrics.with_namespace('Flask') #TODO:
-	g._request_metrics.with_timer('RequestLatency')
+	config = current_app.config
+	if config.get('LOG_METRICS', False):
+		g._request_metrics = BufferedFluentMetric()
+		g._request_metrics.with_namespace(config.get('APP_NAME', 'Flask'))
+		g._request_metrics.with_timer('RequestLatency')
 
 @current_app.after_request
 def end_request(response):
@@ -49,12 +51,14 @@ def end_request(response):
 		else:
 			return 0
 
-	g._request_metrics.count(MetricName='4xxError', Value=error_counter(400))
-	g._request_metrics.count(MetricName='5xxError', Value=error_counter(500))
-	g._request_metrics.count(MetricName='Availability', Value=(1 - error_counter(500)))
-	g._request_metrics.elapsed(MetricName='RequestLatency', TimerName='RequestLatency')
+	config = current_app.config
+	if config.get('LOG_METRICS', False):
 
-	# Finally, ensure that all metrics end up in CloudWatch before this request finally ends.
-	g._request_metrics.flush()
+		g._request_metrics.count(MetricName='4xxError', Value=error_counter(400))
+		g._request_metrics.count(MetricName='5xxError', Value=error_counter(500))
+		g._request_metrics.count(MetricName='Availability', Value=(1 - error_counter(500)))
+		g._request_metrics.elapsed(MetricName='RequestLatency', TimerName='RequestLatency')		
+		# Finally, ensure that all metrics end up in CloudWatch before this request finally ends.
+		g._request_metrics.flush()
 
 	return response

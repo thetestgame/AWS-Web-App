@@ -23,10 +23,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from .cloudwatch import *
-from .cognito import *
+from flask import g
 
-def configure_aws():
+cognito = g._cognito
+
+@cognito.identity_handler
+def lookup_cognito_user(payload):
     """
-    Configures AWS services
+    Look up user in our database from Cognito JWT payload.
     """
+
+    return User.query.filter(User.cognito_username == payload['username']).one_or_none()

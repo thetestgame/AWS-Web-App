@@ -53,6 +53,9 @@ class Config(object):
     # Key used for salting or other stuff
     SECRET_KEY = 'SOME_SECRET_KEY_HERE'
 
+    # Applicatoin
+    APP_NAME = 'Flask'
+
     # Name for logger
     LOGGER_NAME = 'aws-web-app'
 
@@ -112,10 +115,11 @@ class Config(object):
     # Cognito
     COGNITO_REGION = 'us-east-1'
     COGNITO_USERPOOL_ID = 'us-east-1c3fea2'
-
-    # optional
     COGNITO_APP_CLIENT_ID = 'abcdef123456'
     COGNITO_CHECK_TOKEN_EXPIRATION = False
+
+    # Cloudwatch
+    LOG_METRICS = False
 
     # DO NOT CHANGE
     SERVICE = ServiceContainer()

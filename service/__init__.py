@@ -80,7 +80,7 @@ def create_app(env='dev', services=dict()):
         load_views()
 
         # Services
-        #configure_aws()
+        configure_aws()
 
         # Load debug toolbar
         #dev_toolbar = DebugToolbarExtension(app)
