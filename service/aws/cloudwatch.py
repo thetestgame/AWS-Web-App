@@ -37,7 +37,7 @@ def start_request():
 	g._request_metrics.with_timer('RequestLatency')
 
 @current_app.after_request
-def end_request():
+def end_request(response):
 	"""
 	Called at the end of a request. Ends the metric timer and 
 	reports the results
@@ -56,3 +56,5 @@ def end_request():
 
 	# Finally, ensure that all metrics end up in CloudWatch before this request finally ends.
 	g._request_metrics.flush()
+
+	return response
