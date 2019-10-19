@@ -59,3 +59,22 @@ def load_models():
     """
 
     logging.info('Loading models')
+
+    from flask import current_app
+    from flask_pynamodb_resource import modelresource_factory
+    from service.decorators import model
+
+    model_details = model.model_book.models
+    for model_info in model_details:
+
+        exposed = model_info.exposed
+        path = model_info.path
+        model_cls = model_info.model_cls
+        if exposed:
+
+            if path == None:
+                logging.warn('Failed to expose model (%s). No path specified' % model_cls.__name__)
+                continue
+            
+            logging.info('Registering exposed model (%s) under path: %s' % (model_cls.__name__, path))
+            modelresource_factory(model_cls).register(current_app, path)

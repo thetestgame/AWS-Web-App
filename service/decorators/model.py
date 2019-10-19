@@ -58,12 +58,22 @@ class ModelDetailsDecorator(object):
     Custom decorator for registering models with the ModelBook
     """
 
-    def __init__(self, url='/', **kwargs):
+    def __init__(self, path=None, expose=False, **kwargs):
         self._model_cls = None
+        self._path = path
+        self._expose = expose
 
     @property
     def model_cls(self):
         return self._model_cls
+
+    @property
+    def path(self):
+        return self._path
+
+    @property
+    def expose(self):
+        return self._expose
 
     def __call__(self, model_cls):
         self._model_cls = model_cls
