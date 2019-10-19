@@ -23,26 +23,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+# Import models
+
 import logging
+from service.decorators import model
+from flask import current_app, g
 
-from flask import g
-
-from .exceptions import ResourceException
-
-def load_resources():
+def create_tables(**kwargs):
     """
-    Loads the resources into the current flask app
+    Creates all the available tables
     """
 
-    logging.info('Loading resources')
+    model_book = model.model_book
+    models = model_book.models
+    for model_info in models:
+        model_cls = model_info.model_cls
+        logging.info('Creating model: %s' % model_cls.__name__)
+        model_cls.create_table(**kwargs)
 
-    from service.decorators import resource
+@current_app.before_first_request
+def before_first_request(*args, **kwargs):
+    """
+    Called before the first flask request. Automatically creates the dynamodb 
+    tables if required
+    """
 
-    resource_details = resource.resource_book.resources
-    for resource_url in resource_details:
-        details = resource_details[resource_url]
+    config = current_app.config
+    if config.get('DYNAMO_CREATE_TABLES', False):
+        logging.info('Creating dynamo tables on first request.')
+        create_tables()
 
-        logging.debug('Registering resource; Url: %s; Resource: %s' % (
-            resource_url, details.resource_cls.__name__))
-    
-        g._api.add_resource(details.resource_cls, resource_url)
+def load_models():
+    """
+    Loads all available models
+    """
+
+    logging.info('Loading models')

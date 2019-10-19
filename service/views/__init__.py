@@ -33,6 +33,8 @@ def load_views():
     Loads the views into the current flask app
     """
 
+    logging.info('Loading views')
+
     from flask import current_app
     from service.decorators import view
 

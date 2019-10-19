@@ -53,6 +53,7 @@ def main():
     parser.add_argument('--ssl-certfile', '-c', dest='ssl_certfile', action='store', default='server.crt', help='ssl certificate file')
     parser.add_argument('--ssl-keyfile', '-k', dest='ssl_keyfile', action='store', default='server.key', help='ssl key file')
     parser.add_argument('--upload-s3', '-s3', dest='upload_s3', action='store_true', help='deploy s3 assets to AWS')
+    parser.add_argument('--create-tables', '-ct', dest='create_tables', action='store_true', help='creates dynamodb tables in AWS')
     args = parser.parse_args()
 
     # Configure logging
@@ -89,6 +90,11 @@ def main():
         import flask_s3
         flask_s3.create_all(app)
         logging.info('Upload complete.')
+    elif args.create_tables:
+        logging.info('Creating Dynamodb Tables')
+        from service.models import create_tables
+        create_tables()
+        logging.info('Table creation complete')
     else:
         logging.info('Starting Flask Internal (dev) Server')
         app.run(port=args.port)

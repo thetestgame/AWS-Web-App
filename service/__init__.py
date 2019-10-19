@@ -71,19 +71,24 @@ def create_app(env='dev', services=dict()):
         g._cognito = cognito
 
         # Load all further resources and services
-        from .views import load_views
+        from .models import load_models
         from .resources import load_resources
-        from .aws import configure_aws
+        from .views import load_views
 
         # Resources
+        load_models()
         load_resources()
         load_views()
 
         # Services
+        from .aws import configure_aws
         configure_aws()
 
-        # Load debug toolbar
-        #dev_toolbar = DebugToolbarExtension(app)
+        # Load debug toolbar if enabled
+        dev_toolbar = None
+        if app.config.get('DEBUG_TOOLBAR', True):
+            dev_toolbar = DebugToolbarExtension(app)
+        g._dev_toolbar = dev_toolbar
 
         # Configure bootstrap
         Bootstrap(app)

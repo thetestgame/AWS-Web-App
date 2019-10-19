@@ -1,5 +1,6 @@
 zappa
 tornado
+arrow
 flask
 Flask-Script
 flask-restful
@@ -7,5 +8,6 @@ flask-debugtoolbar
 flask-bootstrap
 flask-s3
 flask_cognito
-arrow
+flask-boto3
+flask_pynamodb_resource
 cloudwatch-fluent-metrics

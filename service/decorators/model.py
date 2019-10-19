@@ -23,26 +23,50 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import logging
-
-from flask import g
-
-from .exceptions import ResourceException
-
-def load_resources():
+class ModelBookException(Exception):
     """
-    Loads the resources into the current flask app
+    Custom exception for the model book system
     """
 
-    logging.info('Loading resources')
+class ModelBook(object):
+    """
+    Contains all registered models
+    """
 
-    from service.decorators import resource
+    def __init__(self):
+        self._models = {}
 
-    resource_details = resource.resource_book.resources
-    for resource_url in resource_details:
-        details = resource_details[resource_url]
+    @property
+    def models(self):
+        return self._models
 
-        logging.debug('Registering resource; Url: %s; Resource: %s' % (
-            resource_url, details.resource_cls.__name__))
-    
-        g._api.add_resource(details.resource_cls, resource_url)
+    def add_model(self, model_details):
+        """
+        Registers a new model with the model book
+        """
+
+        url = model_details.url
+        if url in self._models:
+            raise ModelBookException('url %s is already assigned!' % url)
+
+        self._models[url] = model_details
+
+model_book = ModelBook()
+        
+class ModelDetailsDecorator(object):
+    """
+    Custom decorator for registering models with the ModelBook
+    """
+
+    def __init__(self, url='/', **kwargs):
+        self._model_cls = None
+
+    @property
+    def model_cls(self):
+        return self._model_cls
+
+    def __call__(self, model_cls):
+        self._model_cls = model_cls
+        model_book.add_model(self)
+
+model_details = ModelDetailsDecorator

@@ -78,6 +78,7 @@ class Config(object):
     NODE_KEY_CACHE_DIR = "../keycache/"
 
     # Debug Toolbar
+    DEBUG_TOOLBAR = False
     DEBUG_TB_PANELS = (
         'flask_debugtoolbar.panels.versions.VersionDebugPanel',
         'flask_debugtoolbar.panels.timer.TimerDebugPanel',
@@ -92,25 +93,27 @@ class Config(object):
     TRAP_HTTP_EXCEPTIONS = True
 
     # Logging 
-    #LOG_CONFIG = dictConfig({
-    #    'version': 1,
-    #    'formatters': {'default': {
-    #        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-    #    }},
-    #    'handlers': {'wsgi': {
-    #        'class': 'logging.StreamHandler',
-    #        'stream': 'ext://flask.logging.wsgi_errors_stream',
-    #        'formatter': 'default'
-    #    }},
-    #    'root': {
-    #        'level': 'INFO',
-    #        'handlers': ['wsgi']
-    #    },
-    #    LOGGER_NAME: {
-    #        'level': 'INFO',
-    #        'handlers': ['wsgi']          
-    #    }    
-    #})
+    LOG_CONFIG = dictConfig({
+        'version': 1,
+        'formatters': {'default': {
+            'format': '[%(asctime)s][%(levelname)s][%(module)s]: %(message)s',
+        }},
+        'handlers': {
+            'wsgi': {
+                'class': 'logging.StreamHandler',
+                'stream': 'ext://flask.logging.wsgi_errors_stream',
+                'formatter': 'default'
+            }
+        },
+        'root': {
+            'level': 'INFO',
+            'handlers': ['wsgi']
+        },
+        LOGGER_NAME: {
+            'level': 'INFO',
+            'handlers': ['wsgi']          
+        }    
+    })
 
     # Cognito
     COGNITO_REGION = 'us-east-1'
@@ -120,6 +123,9 @@ class Config(object):
 
     # Cloudwatch
     LOG_METRICS = False
+
+    # Dynamodb
+    DYNAMO_CREATE_TABLES = False
 
     # DO NOT CHANGE
     SERVICE = ServiceContainer()
