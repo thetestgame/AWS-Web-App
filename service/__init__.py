@@ -30,6 +30,7 @@ from flask_restful.utils import cors
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_bootstrap import Bootstrap
 from flask_s3 import FlaskS3
+from flask_cognito import CognitoAuth
 
 def create_app(env='dev', services=dict()):
     """
@@ -64,6 +65,10 @@ def create_app(env='dev', services=dict()):
         # Configure S3
         s3 = FlaskS3(app)
         g._s3 = s3
+
+        # Configure Cognito
+        cognito = CognitoAuth(app)
+        g._cognito = cognito
 
         # Load all further resources and services
         from .views import load_views

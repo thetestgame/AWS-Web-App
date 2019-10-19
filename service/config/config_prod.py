@@ -26,5 +26,13 @@ SOFTWARE.
 from .config import Config as ConfigBase
 
 class Config(ConfigBase):
+    """
+    Configuration instance for production
+    """
+    
+    # Flask
     DEBUG = False
     TESTING = False
+
+    # Cognito
+    COGNITO_CHECK_TOKEN_EXPIRATION = True

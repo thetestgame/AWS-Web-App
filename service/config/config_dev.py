@@ -26,4 +26,12 @@ SOFTWARE.
 from .config import Config as ConfigBase
 
 class Config(ConfigBase):
+    """
+    Configuration instance for development
+    """
+
+    # Flask
     DEBUG = True
+
+    # Cognito
+    COGNITO_CHECK_TOKEN_EXPIRATION = False # disable token expiration checking for testing purposes

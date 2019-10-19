@@ -6,5 +6,6 @@ flask-restful
 flask-debugtoolbar
 flask-bootstrap
 flask-s3
+flask_cognito
 arrow
 cloudwatch-fluent-metrics

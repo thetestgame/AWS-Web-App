@@ -109,5 +109,13 @@ class Config(object):
     #    }    
     #})
 
+    # Cognito
+    COGNITO_REGION = 'us-east-1'
+    COGNITO_USERPOOL_ID = 'us-east-1c3fea2'
+
+    # optional
+    COGNITO_APP_CLIENT_ID = 'abcdef123456'
+    COGNITO_CHECK_TOKEN_EXPIRATION = False
+
     # DO NOT CHANGE
     SERVICE = ServiceContainer()
