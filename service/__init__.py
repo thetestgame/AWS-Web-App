@@ -78,7 +78,7 @@ def create_app(env='dev', services=dict()):
         configure_aws()
 
         # Load debug toolbar
-        dev_toolbar = DebugToolbarExtension(app)
+        #dev_toolbar = DebugToolbarExtension(app)
 
         # Configure bootstrap
         Bootstrap(app)
