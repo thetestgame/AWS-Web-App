@@ -137,5 +137,8 @@ class Config(object):
     # Dynamodb
     DYNAMO_CREATE_TABLES = False
 
+    # Boto3
+    BOTO3_SERVICES = []
+
     # DO NOT CHANGE
     SERVICE = ServiceContainer()
